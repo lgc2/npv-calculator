@@ -11,18 +11,22 @@ document.addEventListener('DOMContentLoaded', function () {
     calculateButton.addEventListener('click', function () {
         resetVariablesValues()
 
-        monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value) / 100
-        numberOfInstallments = parseInt(numberOfInstallmentsInput.value)
+        if (!thereIsEmptyOrInvalidField()) {
+            monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value) / 100
+            numberOfInstallments = parseInt(numberOfInstallmentsInput.value)
 
-        document.querySelectorAll('.installment').forEach(installment => {
-            const value = parseFloat(installment.querySelector('.installmentValue').value)
-            const days = parseInt(installment.querySelector('.paymentDays').value)
-            installmentsValues.push(value)
-            installmentsPaymentDays.push(days)
-        })
+            document.querySelectorAll('.installment').forEach(installment => {
+                const value = parseFloat(installment.querySelector('.installmentValue').value)
+                const days = parseInt(installment.querySelector('.paymentDays').value)
+                installmentsValues.push(value)
+                installmentsPaymentDays.push(days)
+            })
 
-        npv = netPresentValueCalculate()
-        resultElement.textContent = `Valor Presente Líquido: R$ ${nvp}`
+            npv = netPresentValueCalculate()
+            resultElement.textContent = `Valor Presente Líquido: R$ ${nvp}`
+        } else {
+            resultElement.textContent = 'Há campo(s) com valor vazio ou inválido'
+        }
     })
 
     function updateInstallments() {
@@ -50,6 +54,24 @@ document.addEventListener('DOMContentLoaded', function () {
             installmentDiv.appendChild(daysInput)
             installmentsContainer.appendChild(installmentDiv)
         }
+    }
+
+    function thereIsEmptyOrInvalidField() {
+        const monthlyIncomeValue = parseFloat(document.getElementById('monthlyIncome').value)
+        if (isNaN(monthlyIncomeValue)) {
+            return true
+        }
+
+        const installments = document.querySelectorAll('.installment')
+        for (let i = 0; i < installments.length; i++) {
+            const value = parseFloat(installments[i].querySelector('.installmentValue').value)
+            const days = parseInt(installments[i].querySelector('.paymentDays').value)
+
+            if (isNaN(value) || isNaN(days)) {
+                return true
+            }
+        }
+        return false
     }
 
     updateInstallments()
