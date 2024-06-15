@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Valor Presente Líquido</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Calcular quanto seria o valor à vista de um orçamento a dado à prazo</h1>
+        <form id="npvForm">
+            <div class="form-group">
+                <label for="monthlyIncome">Digite o rendimento mensal em %:</label>
+                <input type="number" id="monthlyIncome" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label for="numberOfInstallments">Selecione o número de parcelas:</label>
+                <select id="numberOfInstallments" required>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+            <div id="installmentsContainer">
+                <div class="installment">
+                    <input type="number" class="installmentValue" placeholder="Digite o valor da parcela:" step="0.01"
+                        required>
+                    <input type="number" class="paymentDays" placeholder="Digite a quantidade de dias para pagamento"
+                        required>
+                </div>
+            </div>
+            <button type="button" id="calculateButton">Calcular valor presente líquido</button>
+        </form>
+        <p id="result"></p>
+    </div>
+    <script src="npv.js"></script>
+    <script src="interface.js"></script>
+</body>
+
+</html>
